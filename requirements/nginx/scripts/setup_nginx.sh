@@ -1,1 +1,0 @@
-echo CECI EST UN SCRIPT
