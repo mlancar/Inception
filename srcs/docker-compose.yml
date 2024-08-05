@@ -5,4 +5,4 @@ services:
   build: requirements/nginx/.
   container_name: nginx
   ports:
-    - "80:80"
+    - "4443:4443"
