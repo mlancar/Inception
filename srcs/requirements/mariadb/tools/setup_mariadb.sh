@@ -1,13 +1,20 @@
 #!/bin/bash
 
-service mariadb start
+sleep 10
 
-CREATE DATABASE wpdb;
+mysql start
 
-CREATE USER 'new_user'@'%' IDENTIFIED BY 'password';
+mysql -e "CREATE DATABASE IF NOT EXISTS Inception;"
 
-GRANT ALL ON wpdb.* to 'wpuser'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+mysql -e "CREATE USER IF NOT EXISTS malancar@'%' IDENTIFIED BY password;"
 
-service mariadb stop
+mysql -e "GRANT ALL PRIVILEGES ON Inception.* TO malancar@'%' IDENTIFIED BY password;"
 
-mariadbd-safe
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY password_root;"
+
+
+mysql -e "FLUSH PRIVILEGES;"
+
+mysqladmin -u root -p password_root shutdown
+
+exec mysqld_safe

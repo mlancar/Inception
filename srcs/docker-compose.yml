@@ -1,8 +1,47 @@
-version: '3.8'
 
 services:
- nginx:
-  build: requirements/nginx/.
-  container_name: nginx
-  ports:
-    - "4443:4443"
+  mariadb:
+    container_name: mariadb
+    networks:
+     - Inception
+    build:
+     context: requirements/mariadb
+    volumes:
+     - mariadb:/var/lib/mysql
+    restart: unless-stopped
+    # expose:
+    #  - "443" 
+    ports:
+      - "3306:3306"
+
+  nginx:
+    container_name: nginx
+    networks:
+      - Inception
+    build: 
+      context: requirements/nginx/.
+    # env_file: _env
+    # volumes:
+    #   - wordpress: /var/www/html/wordpress
+    ports:
+      - "443:443"
+    restart: on-failure
+  
+networks:
+  Inception:
+
+volumes:
+  mariadb:
+     driver: local
+     name: mariadb_volume
+     driver_opts:
+        type: 'none'
+        o: 'bind'
+        device: '/home/malancar/data/mariadb'
+  wordpress:
+   driver: local
+   name: wordpress_volume
+   driver_opts:
+     type: 'none'
+     o: 'bind'
+     device: '/home/malancar/data/wordpress'
