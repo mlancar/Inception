@@ -4,10 +4,16 @@ RUN apk update && apk upgrade && apk add \
 		openssl		\
 		mariadb		\
 		mariadb-client	\
+		openrc	\
 		procps				\
 		curl		\
 		vim			\
-		sudo
+		sudo	\
+		mariadb-common
+
+RUN openrc
+
+RUN touch /run/openrc/softlevel
 
 RUN rm -f /etc/mariadb/mariadb.conf
 

@@ -8,7 +8,7 @@ services:
      context: requirements/mariadb
     volumes:
      - mariadb:/var/lib/mysql
-    restart: unless-stopped
+    restart: on-failure
     # expose:
     #  - "443" 
     ports:
