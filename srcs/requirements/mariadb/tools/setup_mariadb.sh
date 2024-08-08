@@ -21,7 +21,7 @@ else
 
     echo "CREATE USER IF NOT EXISTS \`malancar\`@'%' IDENTIFIED BY 'password';" >> db.sql
 
-    echo "GRANT ALL PRIVILEGES ON \`Inception\`.* TO \`malancar\`@'%' IDENTIFIED BY 'password';" >> db.sql
+    echo "GRANT ALL PRIVILEGES ON \`Inception\`.* TO \`malancar\`@'localhost' IDENTIFIED BY 'password';" >> db.sql
   
     echo "ALTER USER \`root\`@'localhost' IDENTIFIED BY 'password_root';" >> db.sql
    
