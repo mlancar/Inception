@@ -6,29 +6,45 @@ services:
      - Inception
     build:
      context: requirements/mariadb
+    env_file: .env
     volumes:
      - mariadb:/var/lib/mysql
     restart: on-failure
-    # expose:
-    #  - "443" 
-    ports:
-      - "3306:3306"
+    expose:
+     - "3306"
+    
+    # ports:
+    #   - "3306:3306"
 
   nginx:
     container_name: nginx
+    volumes:
+      - wordpress: /var/www/wordpress
     networks:
       - Inception
+    depends_on:
+      - wordpress
     build: 
       context: requirements/nginx/.
-    # env_file: _env
-    # volumes:
-    #   - wordpress: /var/www/html/wordpress
+    env_file: .env
     ports:
       - "443:443"
     restart: on-failure
   
-networks:
-  Inception:
+  wordpress:
+    container_name: wordpress
+    env_file: .env
+    volumes:
+      - wordpress:/var/www/wordpress
+    networds:
+      -Inception
+    build:
+      context:requirements/wordpress
+    depends_on:
+      - mariadb
+    restart: on_failure
+    expose:
+      - "9000"
 
 volumes:
   mariadb:
@@ -45,3 +61,7 @@ volumes:
      type: 'none'
      o: 'bind'
      device: '/home/malancar/data/wordpress'
+
+networks:
+  Inception:
+  driver: bridge
