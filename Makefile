@@ -4,8 +4,8 @@ up: folder
 	 docker compose -f ./srcs/docker-compose.yml up
 
 folder:
-	sudo mkdir -p /home/uclement/data/mariadb
-	sudo mkdir -p /home/uclement/data/wordpress
+	sudo mkdir -p /home/malancar/data/mariadb
+	sudo mkdir -p /home/malancar/data/wordpress
 
 down:
 	docker compose -f ./srcs/docker-compose.yml down

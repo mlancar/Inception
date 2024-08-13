@@ -1,3 +1,4 @@
+# version: '3'
 
 services:
   mariadb:
@@ -6,6 +7,7 @@ services:
      - Inception
     build:
      context: requirements/mariadb
+     
     env_file: .env
     volumes:
      - mariadb:/var/lib/mysql
@@ -19,7 +21,7 @@ services:
   nginx:
     container_name: nginx
     volumes:
-      - wordpress: /var/www/wordpress
+      - wordpress:/var/www/html/wordpress
     networks:
       - Inception
     depends_on:
@@ -35,14 +37,14 @@ services:
     container_name: wordpress
     env_file: .env
     volumes:
-      - wordpress:/var/www/wordpress
-    networds:
-      -Inception
+      - wordpress:/var/www/html/wordpress
+    networks:
+      - Inception
     build:
-      context:requirements/wordpress
+      context: requirements/wordpress
     depends_on:
       - mariadb
-    restart: on_failure
+    restart: on-failure
     expose:
       - "9000"
 
@@ -64,4 +66,5 @@ volumes:
 
 networks:
   Inception:
-  driver: bridge
+    name: Inception
+    driver: bridge
