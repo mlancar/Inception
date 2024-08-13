@@ -1,11 +1,12 @@
 #!/bin/bash
 sleep 10
+cd /var/www/html/wordpress
 
 wp config create	--allow-root \
 					--dbname=$SQL_DATABASE \
 					--dbuser=$SQL_USER \
 					--dbpass=$SQL_PASSWORD \
-					--dbhost=mariadb:3306 --path='/var/www/wordpress'
+					--dbhost=mariadb:3306 --path='/var/www/html/wordpress'
 
 wp core install	--allow-root \
 			--url=https://${DOMAIN_NAME} \
@@ -35,6 +36,6 @@ if [ ! -d /run/php ]; then
 	mkdir /run/php;
 fi
 
-exec /usr/sbin/php82-fpm -F -R
+exec /usr/sbin/php-fpm82 -F -R
 
 # /usr/sbin/php82-fpm -F

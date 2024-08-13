@@ -30,4 +30,6 @@ RUN chmod +x ./setup_wordpress.sh
 
 COPY ./conf/wordpress.conf /etc/php/82/fpm/pool.d/www.conf
 
+RUN ln -s /usr/bin/php82 /usr/bin/php
+
 ENTRYPOINT ["sh", "./setup_wordpress.sh"]
