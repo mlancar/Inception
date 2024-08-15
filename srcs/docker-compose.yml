@@ -7,16 +7,19 @@ services:
      - Inception
     build:
      context: requirements/mariadb
-     
     env_file: .env
     volumes:
      - mariadb:/var/lib/mysql
     restart: on-failure
     expose:
      - "3306"
-    
-    # ports:
-    #   - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+
 
   nginx:
     container_name: nginx
@@ -43,7 +46,8 @@ services:
     build:
       context: requirements/wordpress
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     restart: on-failure
     expose:
       - "9000"

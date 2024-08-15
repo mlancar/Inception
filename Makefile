@@ -1,7 +1,7 @@
 all: up
 
 up: folder
-	 docker compose -f ./srcs/docker-compose.yml up --build
+	 docker compose -f ./srcs/docker-compose.yml up --build -d
 
 folder:
 	sudo mkdir -p /home/malancar/data/mariadb
