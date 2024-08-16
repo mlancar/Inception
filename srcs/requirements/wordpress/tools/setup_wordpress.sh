@@ -13,6 +13,9 @@ wp-cli.phar core download --allow-root
 # which wp-cli.phar
 # pwd
 # ls -l
+# echo SEARCHING fastcgi-php:
+# which fastcgi-php.conf
+
 chmod +x /usr/local/bin/wp-cli.phar
 sudo mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
 # wp --info
