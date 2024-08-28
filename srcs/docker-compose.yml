@@ -1,4 +1,4 @@
-# version: '3'
+version: '3.7'
 
 services:
   mariadb:
@@ -13,6 +13,8 @@ services:
     restart: on-failure
     expose:
      - "3306"
+    ports:
+     - "3306:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent"]
       interval: 10s

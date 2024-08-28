@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 5
+sleep 10
 
 # cd /var/www/html/wordpress
 
@@ -13,52 +13,48 @@ wp-cli.phar core download --allow-root
 # which wp-cli.phar
 # pwd
 # ls -l
-# echo SEARCHING fastcgi-php:
-# which fastcgi-php.conf
 
-chmod +x /usr/local/bin/wp-cli.phar
-sudo mv /usr/local/bin/wp-cli.phar /usr/local/bin/wp
-# wp --info
+
 # echo WHERE is wp-config.php
 # which wp-config.phar
 # echo SNIF
-# cp wp-config-sample.php wp-config.php
 
 # mysql -u malancar -p
 
-# wp config create	--allow-root \
-# 					--dbname=$SQL_DATABASE \
-# 					--dbuser=$SQL_USER \
-# 					--dbpass=$SQL_PASSWORD  \
-					# --dbhost=mariadb:3306 --path='/var/www/html/wordpress'
-# 					# --config-file=/var/www/html/wordpress
+/usr/local/bin/wp-cli.phar config create	--allow-root \
+					--dbname=$SQL_DATABASE \
+					--dbuser=$SQL_USER \
+					--dbpass=$SQL_PASSWORD  \
+					--dbhost=mariadb:3306 #--path='/var/www/html/wordpress'
+					# --config-file=/var/www/html/wordpress
+
+/usr/local/bin/wp-cli.phar core install	--allow-root \
+			--url=https://${DOMAIN_NAME} \
+			--title=${SITE_TITLE} \
+			--admin_user=${ADMIN_USER} \
+			--admin_password=${ADMIN_PASSWORD} \
+			--admin_email=${ADMIN_EMAIL};
+
 # # ls /var/www/html/wordpress
 
-# wp config path
+/usr/local/bin/wp-cli.phar config path
 
-# wp core install	--allow-root \
-# 			--url=https://${DOMAIN_NAME} \
-# 			--title=${SITE_TITLE} \
-# 			--admin_user=${ADMIN_USER} \
-# 			--admin_password=${ADMIN_PASSWORD} \
-# 			--admin_email=${ADMIN_EMAIL};
-
-# wp user create		--allow-root \
-# 			${USER1_LOGIN} ${USER1_MAIL} \
-# 			--role=author \
-# 			--user_pass=${USER1_PASS} ;
+/usr/local/bin/wp-cli.phar user create		--allow-root \
+			${USER1_LOGIN} ${USER1_MAIL} \
+			--role=author \
+			--user_pass=${USER1_PASS} ;
 
 
-# wp cache flush --allow-root
+/usr/local/bin/wp-cli.phar cache flush --allow-root
 
-# wp plugin install contact-form-7 --activate
+/usr/local/bin/wp-cli.phar plugin install contact-form-7 --activate
 
-# wp language core install en_US --activate
+/usr/local/bin/wp-cli.phar language core install en_US --activate
 
-# wp theme delete twentynineteen twentytwenty
-# wp plugin delete hello
+/usr/local/bin/wp-cli.phar theme delete twentynineteen twentytwenty
+/usr/local/bin/wp-cli.phar plugin delete hello
 
-# wp rewrite structure '/%postname%/'
+/usr/local/bin/wp-cli.phar rewrite structure '/%postname%/'
 
 # fi
 
